@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {freshSave,readSave,gainsForRun,settleRun,buyStat} from './progression.js';
+test('run actions produce capped permanent gains',()=>{assert.deepEqual(gainsForRun({kills:25,damageTaken:170,dodges:12,rooms:3}),{health:2,power:3,haste:2,embers:11});});
+test('death keeps earned stats and grants at least one ember',()=>{const s=freshSave();const result=settleRun(s,{kills:0,damageTaken:100,dodges:0,rooms:0});assert.equal(result.save.stats.health,1);assert.equal(result.save.embers,1);assert.equal(result.save.runs,1);assert.equal(s.runs,0);});
+test('customization spends only available currency',()=>{const s={...freshSave(),embers:3};const bought=buyStat(s,'power');assert.equal(bought.stats.power,1);assert.equal(bought.embers,0);assert.equal(buyStat(bought,'power'),bought);assert.equal(buyStat(s,'unknown'),s);});
+test('invalid saves recover safely and valid saves survive reload',()=>{assert.deepEqual(readSave({getItem:()=>'{'}),freshSave());const s={...freshSave(),embers:10,weapon:'orb'};assert.deepEqual(readSave({getItem:()=>JSON.stringify(s)}),s);const malformed=readSave({getItem:()=>JSON.stringify({version:1,stats:{health:-4,power:1000},weapon:'invalid',embers:-5})});assert.equal(malformed.stats.health,0);assert.equal(malformed.stats.power,200);assert.equal(malformed.embers,0);assert.equal(malformed.weapon,'blade');});
