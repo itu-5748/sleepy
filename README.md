@@ -1,5 +1,10 @@
 # Emberbound
 
+## Unity 3D port
+
+The **Unity/** folder contains the lightweight, fully 3D port. Open that folder in Unity Hub using Unity 6 LTS (6000.0.38f1), open `Assets/Scenes/Emberbound.unity`, and press Play. See [Unity setup and controls](Unity/README.md) and [validation limits](Unity/VALIDATION.md). The browser prototype below remains playable; its sidebar can export permanent progression for import into Unity.
+
+
 ## Hosting
 
 The GitHub Actions workflow publishes the static game to GitHub Pages on pushes to `main`. In the repository's **Settings → Pages**, select **GitHub Actions** as the source, then run **Deploy Emberbound to GitHub Pages** from the Actions tab if needed. The expected address is `https://itu-5748.github.io/sleepy/` once deployment succeeds. Pages availability depends on repository visibility and the GitHub plan.
