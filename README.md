@@ -16,4 +16,6 @@ Progress is stored locally in your browser, without accounts or a backend. Clear
 
 ## Validate
 
-`npm test` exercises permanent gains, settlement, spending, save recovery, map boundaries, camera tracking, and encounter resets. `node --check src/game.js` checks game syntax. Combat is a prototype: placeholder vector art, five connected regions, one boss, no narrative or multiplayer, and no touch controls. Fonts fall back to system fonts if Google Fonts is unavailable.
+`npm test` exercises permanent gains, settlement, spending, save recovery, map boundaries, camera tracking, and encounter resets. `node --check src/game.js` checks game syntax. Combat is a prototype: original pixel-art knight, poison-spitting spiders, and melee skeletons, five connected regions, one boss, no narrative or multiplayer, and no touch controls. Fonts fall back to system fonts if Google Fonts is unavailable.
+
+Spiders spit green poison bolts at range (8 impact damage plus 12 poison damage over three seconds). Poison refreshes without stacking; dash through bolts to avoid it. Skeletons approach and telegraph a sword strike for 0.4 seconds before dealing 14 damage in melee range. Move out of reach or dash to evade. The Ash Warden is a crowned skeleton boss.
