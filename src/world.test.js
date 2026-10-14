@@ -28,3 +28,39 @@ test('new maps reset encounters and shrines, with reachable enemies',()=>{
   assert.equal(createMap().shrines[0].used,false);
   assert.equal(map.boss.active,false);
 });
+
+test('terrain blocks walking and high-speed dashes while allowing wall sliding',async()=>{
+ const {moveOnPath,isWalkable}=await import('./world.js');
+ const body={x:150,y:550};
+ moveOnPath(body,0,-1000,14);
+ assert.ok(body.y>400);
+ assert.ok(isWalkable(body.x,body.y,14));
+ const slider={x:940,y:430};
+ moveOnPath(slider,100,40,14);
+ assert.ok(slider.y>430);
+ assert.ok(isWalkable(slider.x,slider.y,14));
+ assert.equal(isWalkable(150,50,14),false);
+});
+
+test('all shrines, enemy spawns, and boss connect to the starting path',async()=>{
+ const {isWalkable}=await import('./world.js');
+ const step=20,start=[8,28],seen=new Set([start.join(',')]),queue=[start];
+ for(let head=0;head<queue.length;head++){
+  const [x,y]=queue[head];
+  for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+   const nx=x+dx,ny=y+dy,key=nx+','+ny;
+   if(!seen.has(key)&&isWalkable(nx*step,ny*step,14)){seen.add(key);queue.push([nx,ny]);}
+  }
+ }
+ const map=createMap(()=>.95);
+ for(const point of [...map.shrines,map.boss,...map.camps.flatMap(c=>c.enemies)]){
+  assert.ok(isWalkable(point.x,point.y,20),'spawn must fit within path');
+  assert.ok(seen.has(Math.round(point.x/step)+','+Math.round(point.y/step)),'destination must be reachable');
+ }
+});
+
+test('attacks cannot cross impassable terrain',async()=>{
+ const {lineOnPath}=await import('./world.js');
+ assert.equal(lineOnPath({x:150,y:550},{x:250,y:550}),true);
+ assert.equal(lineOnPath({x:150,y:550},{x:150,y:50}),false);
+});
