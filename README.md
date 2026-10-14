@@ -10,10 +10,10 @@ An original browser action roguelite prototype inspired by fast arena combat and
 
 Run `npm start` from this directory and open port 8080 in your browser. Desktop keyboard and mouse are required. WASD or arrow keys move, mouse aims, left click or J attacks, Space dashes, and Escape pauses.
 
-Clear five chambers and defeat the Ash Warden. Between chambers, choose a temporary blessing. At the end of each run, gain permanent vitality from damage endured (one point per 80 damage), might from kills (one per eight), and agility from attacks evaded during a dash (one per six). Each stat grants up to three points per run. Earn embers from kills and rooms, with a minimum of one per run; spend three to raise a stat of your choice. Base stats cap at 200 points each. Choose a blade, spear, or ranged orb before entering.
+Explore a continuous scrolling map across five regions and defeat the Ash Warden in the eastern sanctum. Enemies inhabit camps and pursue you nearby; paths remain open, so you can fight, retreat, or explore. Follow the road east and use the minimap to find four optional shrines. Press E nearby to choose a temporary blessing. At the end of each run, gain permanent vitality from damage endured (one point per 80 damage), might from kills (one per eight), and agility from attacks evaded during a dash (one per six). Each stat grants up to three points per run. Earn embers from kills and new regions reached, with a minimum of one per run; spend three to raise a stat of your choice. Base stats cap at 200 points each. Choose a blade, spear, or ranged orb before entering.
 
 Progress is stored locally in your browser, without accounts or a backend. Clearing browser storage deletes it. Run upgrades reset on each life. Closing a running game abandons that run without settlement.
 
 ## Validate
 
-`npm test` exercises permanent gains, settlement, spending, and save recovery. `node --check src/game.js` checks game syntax. Combat is a prototype: placeholder vector art, five chambers, one boss, no narrative or multiplayer, and no touch controls. Fonts fall back to system fonts if Google Fonts is unavailable.
+`npm test` exercises permanent gains, settlement, spending, save recovery, map boundaries, camera tracking, and encounter resets. `node --check src/game.js` checks game syntax. Combat is a prototype: placeholder vector art, five connected regions, one boss, no narrative or multiplayer, and no touch controls. Fonts fall back to system fonts if Google Fonts is unavailable.
